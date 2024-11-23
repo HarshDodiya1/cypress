@@ -67,7 +67,7 @@ const HomePage = () => {
           ml-[-50px]
         "
         >
-          <Image src={Banner} alt="Application Banner" />
+          <Image src={Banner} alt="Application Banner" priority={true} />
           <div
             className="bottom-0
             top-[50%]

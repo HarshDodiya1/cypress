@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { actionLoginUser } from "@/lib/server-actions/auth-actions";
 import { FormSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -36,7 +37,14 @@ const LoginPage = () => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
     FormData
-  ) => {};
+  ) => {
+    const { error } = await actionLoginUser(FormData);
+    if (error) {
+      form.reset();
+      setSubmitError(error.message);
+    }
+    router.replace("/dashboard");
+  };
 
   return (
     <Form {...form}>
