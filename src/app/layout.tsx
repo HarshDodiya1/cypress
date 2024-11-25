@@ -1,9 +1,9 @@
+import SessionProvider from "@/lib/provider/session-provider";
 import { ThemeProvider } from "@/lib/provider/theme-provider";
-import db from "@/lib/supabase/db";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
-import "./globals.css";
 import { twMerge } from "tailwind-merge";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Productivity×100",
@@ -20,11 +20,13 @@ export default function RootLayout({
   // console.log("This is the db: ", db);
   return (
     <html lang="en">
-      <body className={twMerge("bg-background", inter.className)}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
-        </ThemeProvider>
-      </body>
+      <SessionProvider>
+        <body className={twMerge("bg-background", inter.className)}>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {children}
+          </ThemeProvider>
+        </body>
+      </SessionProvider>
     </html>
   );
 }

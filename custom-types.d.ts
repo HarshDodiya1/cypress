@@ -4,8 +4,9 @@ export interface AuthUser {
   id: number;
   name: string;
   email: string;
-  google_id: string;
   image?: string;
+  provider: string;
+  token?: string;
 }
 
 declare global {

@@ -79,19 +79,10 @@ export const authOptions: AuthOptions = {
         return redirect(
           `/auth/error?message=Something went wrong.please try again!`
         );
-        return false;
       }
     },
 
-    async session({
-      session,
-      token,
-      user,
-    }: {
-      session: CustomSession;
-      token: JWT;
-      user: User;
-    }) {
+    async session({ session, token }: { session: CustomSession; token: JWT }) {
       session.user = token.user as CustomUser;
       return session;
     },
