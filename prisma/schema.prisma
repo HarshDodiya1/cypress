@@ -136,17 +136,17 @@ model File {
 
 model User {
   id             String         @id @default(uuid()) @db.Uuid
-  fullName       String         @db.VarChar(191)
+  name           String         @db.VarChar(191)
   email          String         @unique
   provider       String
   oauth_id       String
-  avatarUrl      String?
+  image          String?
   billingAddress Json?
   paymentMethod  Json?
   subscriptions  Subscription[]
   collaborators  Collaborator[]
   created_at     DateTime       @default(now())
-  updatedAt      DateTime?
+  updatedAt      DateTime?      @updatedAt
 }
 
 model Customer {
