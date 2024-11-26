@@ -12,10 +12,6 @@ import React from "react";
 const DashboardPage = async () => {
   const session: any = await getServerSession(authOptions);
   if (!session) return;
-  // Query the database to find the workspace owned by the user
-  // const workspace = await db.query.workspaces.findFirst({
-  //   where: (workspace, { eq }) => eq(workspace.workspaceOwner, user.id),
-  // });
   const workspace = await db.workspace.findFirst({
     where: {
       workspaceOwner: session?.user?.id!,

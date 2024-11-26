@@ -1,6 +1,4 @@
 "use client";
-import React, { useState } from "react";
-import { AuthUser } from "../../../custom-types";
 import {
   Card,
   CardContent,
@@ -8,22 +6,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { v4 } from "uuid";
-import { Button } from "../ui/button";
-import EmojiPicker from "../global/emoji-picker";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { CreateWorkspaceFormSchema } from "@/lib/types";
-import Loader from "../global/Loader";
-import { Subscription, Workspace } from "@/lib/db/supabase.types";
 import { useToast } from "@/hooks/use-toast";
 import { createWorkspace } from "@/lib/db/queries";
-import { useRouter } from "next/navigation";
-import { useAppState } from "@/lib/provider/state-provider";
+import { Subscription, Workspace } from "@/lib/db/supabase.types";
 import { supabase } from "@/lib/db/supabaseClient";
-// import supabase from "@/lib/db/supabaseClient";
+import { useAppState } from "@/lib/provider/state-provider";
+import { CreateWorkspaceFormSchema } from "@/lib/types";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { v4 } from "uuid";
+import { z } from "zod";
+import EmojiPicker from "../global/emoji-picker";
+import Loader from "../global/Loader";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+
 interface DashboardSetupProps {
   user?: any;
   subscription: Subscription | null;
@@ -68,14 +67,12 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
             cacheControl: "3600",
             upsert: true,
           });
-        // if (error) throw new Error("This the error while uploading the file");
-        console.log("This is the data for the public url : ", data);
+
         const { data: publicUrlData } = supabase.storage
           .from("workspace-logos")
           .getPublicUrl(data.data?.path || "");
 
-        filePath = publicUrlData?.publicUrl || null;
-        console.log("This is the filepath we are saving: ", filePath);
+        filePath = data.data?.path;
       } catch (error) {
         console.log("Error", error);
         toast({
