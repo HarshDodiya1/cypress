@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
+import AppStateProvider from "@/lib/provider/state-provider";
 
 export const metadata: Metadata = {
   title: "Productivity×100",
@@ -20,13 +21,15 @@ export default function RootLayout({
   // console.log("This is the db: ", db);
   return (
     <html lang="en">
-      <SessionProvider>
-        <body className={twMerge("bg-background", inter.className)}>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children}
-          </ThemeProvider>
-        </body>
-      </SessionProvider>
+      <AppStateProvider>
+        <SessionProvider>
+          <body className={twMerge("bg-background", inter.className)}>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+              {children}
+            </ThemeProvider>
+          </body>
+        </SessionProvider>
+      </AppStateProvider>
     </html>
   );
 }
