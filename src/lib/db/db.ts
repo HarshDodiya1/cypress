@@ -8,6 +8,10 @@ const db =
     log: ["query", "info", "warn", "error"],
   });
 
+db.$connect().then(() => {
+  console.log("Database connected by Prisma");
+});
+
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;
 
 export default db;

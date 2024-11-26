@@ -5,6 +5,7 @@ import { DM_Sans } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
 import AppStateProvider from "@/lib/provider/state-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Productivity×100",
@@ -26,6 +27,7 @@ export default function RootLayout({
           <body className={twMerge("bg-background", inter.className)}>
             <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
               {children}
+              <Toaster />
             </ThemeProvider>
           </body>
         </SessionProvider>

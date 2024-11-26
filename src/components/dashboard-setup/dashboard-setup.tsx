@@ -68,10 +68,6 @@ const DashboardSetup: React.FC<DashboardSetupProps> = ({
             upsert: true,
           });
 
-        const { data: publicUrlData } = supabase.storage
-          .from("workspace-logos")
-          .getPublicUrl(data.data?.path || "");
-
         filePath = data.data?.path;
       } catch (error) {
         console.log("Error", error);
