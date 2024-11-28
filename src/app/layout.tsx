@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import "./globals.css";
 import AppStateProvider from "@/lib/provider/state-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { SupabaseUserProvider } from "@/lib/provider/supabase-user-provider";
 
 export const metadata: Metadata = {
   title: "Productivity×100",
@@ -24,12 +25,14 @@ export default function RootLayout({
     <html lang="en">
       <AppStateProvider>
         <SessionProvider>
-          <body className={twMerge("bg-background", inter.className)}>
-            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </body>
+          <SupabaseUserProvider>
+            <body className={twMerge("bg-background", inter.className)}>
+              <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+                {children}
+                <Toaster />
+              </ThemeProvider>
+            </body>
+          </SupabaseUserProvider>
         </SessionProvider>
       </AppStateProvider>
     </html>

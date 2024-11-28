@@ -14,7 +14,6 @@ interface LoginData {
 export async function POST(request: Request) {
   try {
     const data: LoginData = await request.json();
-
     if (!data.email || !data.oauth_id || !data.provider) {
       return NextResponse.json(
         { message: "Missing required fields" },

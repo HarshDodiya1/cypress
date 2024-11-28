@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthUser } from "@supabase/supabase-js";
+import { AuthUser, createClient } from "@supabase/supabase-js";
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { Subscription } from "../db/supabase.types";
@@ -38,25 +38,31 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
   //subscrip
   useEffect(() => {
     const getUser = async () => {
-      const session: any = await getServerSession(authOptions);
+      const response = await fetch("/api/get-session");
+      const session = await response.json();
       const user = session?.user;
+
       if (user) {
-        console.log(user);
         setUser(user);
         const { data, error } = await getUserSubscriptionStatus(user.id);
         if (data) setSubscription(data);
         if (error) {
           toast({
             title: "Unexpected Error",
-            description:
-              "Oppse! An unexpected error happened. Try again later.",
+            description: "Oops! An unexpected error happened. Try again later.",
           });
         }
       }
     };
     getUser();
-  }, [getServerSession, toast]);
-  console.log("This is the children we are providing via supabase-user-provider:", children);
+  }, []);
+
+  console.log(
+    "this is sending values of user and subscription: ",
+    user,
+    subscription
+  );
+
   return (
     <SupabaseUserContext.Provider value={{ user, subscription }}>
       {children}

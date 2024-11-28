@@ -16,11 +16,13 @@ export const createWorkspace = async (workspacece: Workspace) => {
 
 export const getUserSubscriptionStatus = async (userId: string) => {
   try {
+    console.log("This is the userid I'm getting", userId);
     const data = await db.subscription.findFirst({
       where: {
-        userId: userId,
+        id: userId,
       },
     });
+
     if (data) return { data: data as Subscription, error: null };
     else return { data: null, error: null };
   } catch (error) {

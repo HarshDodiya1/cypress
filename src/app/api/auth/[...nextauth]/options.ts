@@ -1,10 +1,10 @@
 import { config } from "@/../config";
-import { Account, AuthOptions, ISODateString, User } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-import { redirect } from "next/navigation";
 import { AxiosError } from "axios";
+import { Account, AuthOptions, ISODateString } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+import { redirect } from "next/navigation";
 
 export interface CustomSession {
   user?: CustomUser;
