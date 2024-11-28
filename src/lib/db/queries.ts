@@ -1,7 +1,7 @@
 "use server";
 import { validate } from "uuid";
 import db from "./db";
-import { Folder, Subscription, Workspace } from "./supabase.types";
+import { Folder, Subscription, User, Workspace } from "./supabase.types";
 
 export const createWorkspace = async (workspacece: Workspace) => {
   try {
@@ -216,4 +216,23 @@ export const getSharedWorkspaces = async (userId: string) => {
     },
   })) as Workspace[];
   return sharedWorkspaces;
+};
+
+export const addCollaborators = async (users: User[], workspaceId: string) => {
+  const response = users.forEach(async (user: User) => {
+    const userExists = await db.collaborator.findFirst({
+      where: {
+        workspaceId: workspaceId,
+        userId: user.id,
+      },
+    });
+    if (!userExists) {
+      await db.collaborator.create({
+        data: {
+          workspaceId: workspaceId,
+          userId: user.id,
+        },
+      });
+    }
+  });
 };
