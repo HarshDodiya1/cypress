@@ -252,3 +252,16 @@ export const getUsersFromSearch = async (email: string) => {
   });
   return accounts;
 };
+
+export const createFolder = async (folder: Folder) => {
+  try {
+    // const results = await db.insert(folders).values(folder);
+    const results = await db.folder.create({
+      data: folder,
+    });
+    return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: "Error" };
+  }
+};
