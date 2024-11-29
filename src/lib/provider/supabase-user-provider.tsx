@@ -55,7 +55,7 @@ export const SupabaseUserProvider: React.FC<SupabaseUserProviderProps> = ({
       }
     };
     getUser();
-  }, []);
+  }, [toast]);
 
   console.log(
     "this is sending values of user and subscription: ",

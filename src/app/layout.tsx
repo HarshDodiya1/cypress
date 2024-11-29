@@ -22,11 +22,14 @@ export default function RootLayout({
 }>) {
   // console.log("This is the db: ", db);
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <AppStateProvider>
         <SessionProvider>
           <SupabaseUserProvider>
-            <body className={twMerge("bg-background", inter.className)}>
+            <body
+              className={twMerge("bg-background", inter.className)}
+              suppressHydrationWarning
+            >
               <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
                 {children}
                 <Toaster />

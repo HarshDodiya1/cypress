@@ -1,10 +1,10 @@
 "use client";
+import CustomDialogTrigger from "@/components/global/custom-dialog-trigger";
+import WorkspaceCreator from "@/components/global/workspace-creator";
+import SelectedWorkspace from "@/components/sidebar/selected-workspace";
 import { Workspace } from "@/lib/db/supabase.types";
 import { useAppState } from "@/lib/provider/state-provider";
 import React, { useEffect, useState } from "react";
-import SelectedWorkspace from "./selected-workspace";
-import CustomDialogTrigger from "../global/custom-dialog-trigger";
-import WorkspaceCreator from "../global/workspace-creator";
 
 interface WorkspaceDropdownProps {
   privateWorkspaces: Workspace[] | [];

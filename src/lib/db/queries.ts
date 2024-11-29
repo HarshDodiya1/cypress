@@ -236,3 +236,19 @@ export const addCollaborators = async (users: User[], workspaceId: string) => {
     }
   });
 };
+
+export const getUsersFromSearch = async (email: string) => {
+  if (!email) return [];
+  // const accounts = db
+  //   .select()
+  //   .from(users)
+  //   .where(ilike(users.email, `${email}%`));
+  const accounts = db.user.findMany({
+    where: {
+      email: {
+        startsWith: email,
+      },
+    },
+  });
+  return accounts;
+};

@@ -1,7 +1,10 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -9,16 +12,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SelectGroup } from "@radix-ui/react-select";
 import { useToast } from "@/hooks/use-toast";
+import { addCollaborators, createWorkspace } from "@/lib/db/queries";
 import { User, Workspace } from "@/lib/db/supabase.types";
 import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
+import { SelectGroup } from "@radix-ui/react-select";
 import { Lock, Plus, Share } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "../ui/button";
-import { addCollaborators, createWorkspace } from "@/lib/db/queries";
 import { v4 } from "uuid";
+import CollaboratorSearch from "./collaborator-search";
 
 const WorkspaceCreator = () => {
   const { user } = useSupabaseUser();
@@ -139,7 +142,84 @@ const WorkspaceCreator = () => {
           </SelectContent>
         </Select>
       </>
-      {permissions === "shared" && <div></div>}
+      {permissions === "shared" && (
+        <div>
+          <CollaboratorSearch
+            existingCollaborators={collaborators}
+            getCollaborator={(user) => {
+              addCollaborator(user);
+            }}
+          >
+            <Button type="button" className="text-sm mt-4">
+              <Plus />
+              Add Collaborators
+            </Button>
+          </CollaboratorSearch>
+          <div className="mt-4">
+            <span className="text-sm text-muted-foreground">
+              Collaborators {collaborators.length || ""}
+            </span>
+            <ScrollArea
+              className="
+            h-[120px]
+            overflow-y-scroll
+            w-full
+            rounded-md
+            border
+            border-muted-foreground/20"
+            >
+              {collaborators.length ? (
+                collaborators.map((c) => (
+                  <div
+                    className="p-4 flex justify-between items-center"
+                    key={c.id}
+                  >
+                    <div className="flex gap-4 items-center">
+                      <Avatar>
+                        <AvatarImage src="/avatars/7.png" />
+                        <AvatarFallback>PJ</AvatarFallback>
+                      </Avatar>
+                      <div
+                        className="text-sm 
+                          gap-2
+                          text-muted-foreground
+                          overflow-hidden
+                          overflow-ellipsis
+                          sm:w-[300px]
+                          w-[140px]
+                        "
+                      >
+                        {c.email}
+                      </div>
+                    </div>
+                    <Button
+                      variant="secondary"
+                      onClick={() => removeCollaborator(c)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                ))
+              ) : (
+                <div
+                  className="absolute
+                  right-0 left-0
+                  top-0
+                  bottom-0
+                  flex
+                  justify-center
+                  items-center
+                "
+                >
+                  <span className="text-muted-foreground text-sm">
+                    You have no collaborators
+                  </span>
+                </div>
+              )}
+            </ScrollArea>
+          </div>
+        </div>
+      )}
       <Button
         type="button"
         disabled={
