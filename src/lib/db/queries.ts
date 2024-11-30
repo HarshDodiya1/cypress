@@ -1,7 +1,7 @@
 "use server";
 import { validate } from "uuid";
 import db from "./db";
-import { Folder, Subscription, User, Workspace } from "./supabase.types";
+import { File, Folder, Subscription, User, Workspace } from "./supabase.types";
 
 export const createWorkspace = async (workspacece: Workspace) => {
   try {
@@ -260,6 +260,53 @@ export const createFolder = async (folder: Folder) => {
       data: folder,
     });
     return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: "Error" };
+  }
+};
+
+export const createFile = async (file: File) => {
+  try {
+    // await db.insert(files).values(file);
+    await db.file.create({
+      data: file,
+    });
+    return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: "Error" };
+  }
+};
+
+export const updateFolder = async (
+  folder: Partial<Folder>,
+  folderId: string
+) => {
+  try {
+    // await db.update(folders).set(folder).where(eq(folders.id, folderId));
+    await db.folder.update({
+      where: {
+        id: folderId,
+      },
+      data: folder,
+    });
+    return { data: null, error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: "Error" };
+  }
+};
+
+export const updateFile = async (file: Partial<File>, fileId: string) => {
+  try {
+    const response = await db.file.update({
+      where: {
+        id: fileId,
+      },
+      data: file,
+    });
+    return { data: response, error: null };
   } catch (error) {
     console.log(error);
     return { data: null, error: "Error" };

@@ -23,7 +23,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   const { state, dispatch, folderId } = useAppState();
   const [folders, setFolders] = useState(workspaceFolders);
   const { subscription } = useSupabaseUser();
-  const { open, setOpen } = useSubscriptionModal();
+//   const { open, setOpen } = useSubscriptionModal();
   useEffect(() => {
     if (workspaceFolders.length > 0) {
       dispatch({
@@ -51,7 +51,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
 
   const addFolderHandler = async () => {
     if (folders.length >= 3 && !subscription) {
-      setOpen(true);
+    //   setOpen(true);
       return;
     }
     const newFolder: Folder = {
