@@ -253,6 +253,25 @@ export const getUsersFromSearch = async (email: string) => {
   return accounts;
 };
 
+export const getCollaborators = async (workspaceId: string) => {
+  const response = await db.collaborator.findMany({
+    where: {
+      workspaceId: workspaceId,
+    },
+  });
+  if (!response.length) return [];
+  const userInformation: Promise<User | null>[] = response.map(async (user) => {
+    const exists = await db.user.findUnique({
+      where: {
+        id: user.userId,
+      },
+    });
+    return exists;
+  });
+  const resolvedUsers = await Promise.all(userInformation);
+  return resolvedUsers.filter(Boolean) as User[];
+};
+
 export const createFolder = async (folder: Folder) => {
   try {
     // const results = await db.insert(folders).values(folder);
@@ -312,3 +331,62 @@ export const updateFile = async (file: Partial<File>, fileId: string) => {
     return { data: null, error: "Error" };
   }
 };
+
+export const updateWorkspace = async (
+  workspace: Partial<Workspace>,
+  workspaceId: string
+) => {
+  if (!workspaceId) return;
+  try {
+    const response = await db.workspace.update({
+      where: {
+        id: workspaceId,
+      },
+      data: workspace,
+    });
+    return { data: response, error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: null, error: "Error" };
+  }
+};
+
+export const removeCollaborators = async (
+  users: User[],
+  workspaceId: string
+) => {
+  const response = users.forEach(async (user: User) => {
+    const userExists = await db.collaborator.findFirst({
+      where: {
+        workspaceId: workspaceId,
+        userId: user.id,
+      },
+    });
+    if (userExists) {
+      await db.collaborator.delete({
+        where: {
+          userId_workspaceId: {
+            userId: user.id,
+            workspaceId: workspaceId,
+          },
+        },
+      });
+    }
+  });
+};
+
+export const deleteWorkspace = async (workspaceId: string) => {
+  if (!workspaceId) return;
+  try {
+    await db.workspace.delete({
+      where: {
+        id: workspaceId,
+      },
+    });
+    return { data: null, error: null };
+  } catch (error) {
+    console.log("Error while deleting the workspace: ", error);
+    return { data: null, error: "Error" };
+  }
+};
+
