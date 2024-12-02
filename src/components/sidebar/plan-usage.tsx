@@ -1,10 +1,10 @@
 "use client";
-import { Subscription } from "@/lib/db/supabase.types";
-import React, { useEffect, useState } from "react";
 import CypressDiamondIcon from "@/components/icons/cypressDiamongIcon";
-import { useAppState } from "@/lib/provider/state-provider";
+import { Progress } from "@/components/ui/progress";
 import { MAX_FOLDERS_FREE_PLAN } from "@/lib/constants";
-import { Progress } from "../ui/progress";
+import { Subscription } from "@/lib/db/supabase.types";
+import { useAppState } from "@/lib/provider/state-provider";
+import React, { useEffect, useState } from "react";
 
 interface PlanUsageProps {
   foldersLength: number;

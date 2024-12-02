@@ -1,29 +1,28 @@
 "use client";
+import EmojiPicker from "@/components/global/emoji-picker";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   deleteFile,
   deleteFolder,
   updateFile,
   updateFolder,
 } from "@/lib/db/queries";
-import BannerImage from "@/../public/BannerImage.png";
 import { File, Folder, Workspace } from "@/lib/db/supabase.types";
+import { supabase } from "@/lib/db/supabaseClient";
 import { useAppState } from "@/lib/provider/state-provider";
+import { XCircleIcon } from "lucide-react";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import "quill/dist/quill.snow.css";
 import React, { useCallback, useMemo, useState } from "react";
-import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Badge } from "../ui/badge";
-import Image from "next/image";
-import { supabase } from "@/lib/db/supabaseClient";
-import { XCircleIcon } from "lucide-react";
-import EmojiPicker from "../global/emoji-picker";
 
 interface QuillEditorProps {
   dirDetails: File | Folder | Workspace;

@@ -1,16 +1,15 @@
 "use client";
+import TooltipComponent from "@/components/global/tooltip-component";
+import { Accordion } from "@/components/ui/accordion";
 import { toast } from "@/hooks/use-toast";
 import { createFolder } from "@/lib/db/queries";
 import { Folder } from "@/lib/db/supabase.types";
 import { useAppState } from "@/lib/provider/state-provider";
-import React, { useState, useEffect } from "react";
-import TooltipComponent from "../global/tooltip-component";
-import { PlusIcon } from "lucide-react";
-import { Accordion } from "../ui/accordion";
-import Dropdown from "./Dropdown";
-import { v4 } from "uuid";
 import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
-import { useSubscriptionModal } from "@/lib/provider/subscription-modal-provider";
+import { PlusIcon } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { v4 } from "uuid";
+import Dropdown from "./Dropdown";
 
 interface FoldersDropdownListProps {
   workspaceFolders: Folder[];
@@ -23,7 +22,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   const { state, dispatch, folderId } = useAppState();
   const [folders, setFolders] = useState(workspaceFolders);
   const { subscription } = useSupabaseUser();
-//   const { open, setOpen } = useSubscriptionModal();
+  //   const { open, setOpen } = useSubscriptionModal();
   useEffect(() => {
     if (workspaceFolders.length > 0) {
       dispatch({

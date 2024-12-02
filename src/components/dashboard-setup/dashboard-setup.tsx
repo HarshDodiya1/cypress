@@ -1,4 +1,7 @@
 "use client";
+import EmojiPicker from "@/components/global/emoji-picker";
+import Loader from "@/components/global/Loader";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { createWorkspace } from "@/lib/db/queries";
 import { Subscription, Workspace } from "@/lib/db/supabase.types";
@@ -17,11 +22,6 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 } from "uuid";
 import { z } from "zod";
-import EmojiPicker from "../global/emoji-picker";
-import Loader from "../global/Loader";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 
 interface DashboardSetupProps {
   user?: any;

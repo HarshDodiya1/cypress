@@ -1,20 +1,20 @@
+import EmojiPicker from "@/components/global/emoji-picker";
+import TooltipComponent from "@/components/global/tooltip-component";
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useToast } from "@/hooks/use-toast";
 import { createFile, updateFile, updateFolder } from "@/lib/db/queries";
 import { File } from "@/lib/db/supabase.types";
 import { useAppState } from "@/lib/provider/state-provider";
 import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
 import clsx from "clsx";
+import { PlusIcon, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useMemo, useState } from "react";
 import { v4 } from "uuid";
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../ui/accordion";
-import EmojiPicker from "../global/emoji-picker";
-import TooltipComponent from "../global/tooltip-component";
-import { PlusIcon, Trash } from "lucide-react";
 
 interface DropdownProps {
   title: string;

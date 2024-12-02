@@ -1,4 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   getCollaboratingWorkspaces,
   getFolders,
@@ -10,11 +11,10 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import WorkspaceDropdown from "./workspace-dropdown";
-import PlanUsage from "./plan-usage";
-import NativeNavigation from "./native-navigation";
-import { ScrollArea } from "../ui/scroll-area";
 import FoldersDropdownList from "./folders-dropdown-list";
+import NativeNavigation from "./native-navigation";
+import PlanUsage from "./plan-usage";
+import WorkspaceDropdown from "./workspace-dropdown";
 
 interface SidebarProps {
   params: { workspaceId: string };

@@ -1,22 +1,19 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
-import Logo from "@/../public/cypresslogo.svg";
-
+import Logo from "@/components/public/cypresslogo.svg";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 
 const routes = [
   { title: "Features", href: "#features" },
