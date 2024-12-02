@@ -218,6 +218,67 @@ export const getSharedWorkspaces = async (userId: string) => {
   return sharedWorkspaces;
 };
 
+export const getWorkspaceDetails = async (workspaceId: string) => {
+  const isValid = validate(workspaceId);
+  console.log("Kya valid hai? ", isValid);
+  if (!isValid)
+    return {
+      data: [],
+      error: "Error",
+    };
+
+  try {
+    const response = (await db.workspace.findFirst({
+      where: {
+        id: workspaceId,
+      },
+    })) as Workspace;
+    return { data: response ? [response] : [], error: null };
+  } catch (error) {
+    console.log(error);
+    return { data: [], error: "Error" };
+  }
+};
+
+export const getFolderDetails = async (folderId: string) => {
+  const isValid = validate(folderId);
+  if (!isValid) {
+    data: [];
+    error: "Error";
+  }
+
+  try {
+    const response = (await db.folder.findFirst({
+      where: {
+        id: folderId,
+      },
+    })) as Folder;
+    return { data: response ? [response] : [], error: null };
+  } catch (error) {
+    return { data: [], error: "Error" };
+  }
+};
+
+export const getFileDetails = async (fileId: string) => {
+  const isValid = validate(fileId);
+  if (!isValid) {
+    return {
+      data: [],
+      error: "Error",
+    };
+  }
+  try {
+    const response = (await db.file.findFirst({
+      where: {
+        id: fileId,
+      },
+    })) as File;
+    return { data: response ? [response] : [], error: null };
+  } catch (error) {
+    return { data: [], error: "Error" };
+  }
+};
+
 export const addCollaborators = async (users: User[], workspaceId: string) => {
   const response = users.forEach(async (user: User) => {
     const userExists = await db.collaborator.findFirst({
@@ -390,3 +451,20 @@ export const deleteWorkspace = async (workspaceId: string) => {
   }
 };
 
+export const deleteFile = async (fileId: string) => {
+  if (!fileId) return;
+  await db.file.delete({
+    where: {
+      id: fileId,
+    },
+  });
+};
+
+export const deleteFolder = async (folderId: string) => {
+  if (!folderId) return;
+  await db.folder.delete({
+    where: {
+      id: folderId,
+    },
+  });
+};
