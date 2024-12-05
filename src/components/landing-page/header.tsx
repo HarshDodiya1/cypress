@@ -1,5 +1,6 @@
 "use client";
-import Logo from "@/components/public/cypresslogo.svg";
+// import Logo from "@/components/public/cypresslogo.svg";
+import Logo from "@/../public/cypresslogo.svg";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,

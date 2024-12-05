@@ -62,6 +62,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   const { state, workspaceId, folderId, dispatch } = useAppState();
   const [quill, setQuill] = useState<any>(null);
   const [saving, setSaving] = useState(false);
+  const [deletingBanner, setDeletingBanner] = useState(false);
   const [collaborators, setCollaborators] = useState<
     {
       id: string;
@@ -247,6 +248,41 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
       });
     }
   }, []);
+
+  const deleteBanner = async () => {
+    if (!fileId) return;
+    setDeletingBanner(true);
+    if (dirType === 'file') {
+      if (!folderId || !workspaceId) return;
+      dispatch({
+        type: 'UPDATE_FILE',
+        payload: { file: { bannerUrl: '' }, fileId, folderId, workspaceId },
+      });
+      await supabase.storage.from('file-banners').remove([`banner-${fileId}`]);
+      await updateFile({ bannerUrl: '' }, fileId);
+    }
+    if (dirType === 'folder') {
+      if (!workspaceId) return;
+      dispatch({
+        type: 'UPDATE_FOLDER',
+        payload: { folder: { bannerUrl: '' }, folderId: fileId, workspaceId },
+      });
+      await supabase.storage.from('file-banners').remove([`banner-${fileId}`]);
+      await updateFolder({ bannerUrl: '' }, fileId);
+    }
+    if (dirType === 'workspace') {
+      dispatch({
+        type: 'UPDATE_WORKSPACE',
+        payload: {
+          workspace: { bannerUrl: '' },
+          workspaceId: fileId,
+        },
+      });
+      await supabase.storage.from('file-banners').remove([`banner-${fileId}`]);
+      await updateWorkspace({ bannerUrl: '' }, fileId);
+    }
+    setDeletingBanner(false);
+  };
 
   return (
     <>

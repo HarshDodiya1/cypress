@@ -36,6 +36,8 @@ const BannerUploadForm: React.FC<BannerUploadFormProps> = ({
     defaultValues: { banner: "" },
   });
   const onSubmitHandler: SubmitHandler<FieldValues> = async (values) => {
+    console.log("These are the values: ", values);
+
     const file = values.banner?.[0];
     if (!file || !id) return;
     try {
@@ -44,17 +46,21 @@ const BannerUploadForm: React.FC<BannerUploadFormProps> = ({
         const { data, error } = await supabase.storage
           .from("file-banners")
           .upload(`banner-${id}`, file, {
-            cacheControl: "5",
+            cacheControl: "3600",
             upsert: true,
           });
-        if (error) throw new Error();
-        filePath = data.path;
+        if (error) {
+          console.error("Yeh error aa gaya hai ji ", error);
+          throw new Error();
+        }
+        console.log("Error nahi aaya hai ji, this is the data we got ", data);
+        filePath = data?.path;
       };
       if (dirType === "file") {
         if (!workspaceId || !folderId) return;
         await uploadBannerImage();
         dispatch({
-          type: "UPDATE_FILE_DATA",
+          type: "UPDATE_FILE",
           payload: {
             file: { bannerUrl: filePath },
             fileId: id,
@@ -67,7 +73,7 @@ const BannerUploadForm: React.FC<BannerUploadFormProps> = ({
         if (!workspaceId) return;
         await uploadBannerImage();
         dispatch({
-          type: "UPDATE_WORKSPACE_DATA",
+          type: "UPDATE_WORKSPACE",
           payload: {
             workspace: { bannerUrl: filePath },
             workspaceId,
@@ -78,7 +84,7 @@ const BannerUploadForm: React.FC<BannerUploadFormProps> = ({
         if (!workspaceId || !folderId) return;
         await uploadBannerImage();
         dispatch({
-          type: "UPDATE_FOLDER_DATA",
+          type: "UPDATE_FOLDER",
           payload: {
             folderId: id,
             folder: { bannerUrl: filePath },
