@@ -14,6 +14,7 @@ import {
   deleteFolder,
   updateFile,
   updateFolder,
+  updateWorkspace,
 } from "@/lib/db/queries";
 import { File, Folder, Workspace } from "@/lib/db/supabase.types";
 import { supabase } from "@/lib/db/supabaseClient";
@@ -23,6 +24,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import "quill/dist/quill.snow.css";
 import React, { useCallback, useMemo, useState } from "react";
+import BannerUpload from "../banner-upload/banner-upload";
 
 interface QuillEditorProps {
   dirDetails: File | Folder | Workspace;
@@ -154,6 +156,38 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
       });
       await deleteFolder(fileId);
       router.replace(`/dashboard/${workspaceId}`);
+    }
+  };
+
+  const iconOnChange = async (icon: string) => {
+    if (!fileId) return;
+    if (dirType === "workspace") {
+      dispatch({
+        type: "UPDATE_WORKSPACE",
+        payload: { workspace: { iconId: icon }, workspaceId: fileId },
+      });
+      await updateWorkspace({ iconId: icon }, fileId);
+    }
+    if (dirType === "folder") {
+      if (!workspaceId) return;
+      dispatch({
+        type: "UPDATE_FOLDER",
+        payload: {
+          folder: { iconId: icon },
+          workspaceId,
+          folderId: fileId,
+        },
+      });
+      await updateFolder({ iconId: icon }, fileId);
+    }
+    if (dirType === "file") {
+      if (!workspaceId || !folderId) return;
+
+      dispatch({
+        type: "UPDATE_FILE",
+        payload: { file: { iconId: icon }, workspaceId, folderId, fileId },
+      });
+      await updateFile({ iconId: icon }, fileId);
     }
   };
 
@@ -321,6 +355,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           </div>
           <div className="flex ">
             <BannerUpload
+              details={details}
               id={fileId}
               dirType={dirType}
               className="mt-2 text-sm text-muted-foreground p-2 hover:text-card-foreground transition-all rounded-md"
