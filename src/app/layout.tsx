@@ -7,6 +7,7 @@ import "./globals.css";
 import AppStateProvider from "@/lib/provider/state-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SupabaseUserProvider } from "@/lib/provider/supabase-user-provider";
+import { SocketProvider } from "@/lib/provider/socket-provider";
 
 export const metadata: Metadata = {
   title: "Productivity×100",
@@ -31,8 +32,10 @@ export default function RootLayout({
               suppressHydrationWarning
             >
               <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-                {children}
-                <Toaster />
+                <SocketProvider>
+                  {children}
+                  <Toaster />
+                </SocketProvider>
               </ThemeProvider>
             </body>
           </SupabaseUserProvider>

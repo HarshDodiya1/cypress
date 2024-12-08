@@ -16,14 +16,9 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 interface BannerUploadFormProps {
   dirType: "workspace" | "file" | "folder";
   id: string;
-  details: appWorkspacesType | appFoldersType | File | Workspace | Folder;
 }
 
-const BannerUploadForm: React.FC<BannerUploadFormProps> = ({
-  dirType,
-  id,
-  details,
-}) => {
+const BannerUploadForm: React.FC<BannerUploadFormProps> = ({ dirType, id }) => {
   const { state, workspaceId, folderId, dispatch } = useAppState();
 
   const {
