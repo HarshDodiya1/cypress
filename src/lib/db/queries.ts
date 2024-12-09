@@ -259,6 +259,18 @@ export const getFolderDetails = async (folderId: string) => {
   }
 };
 
+export const findUser = async (userId: string) => {
+  // const response = await db.query.users.findFirst({
+  //   where: (u, { eq }) => eq(u.id, userId),
+  // });
+  const response = await db.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+  return response;
+};
+
 export const getFileDetails = async (fileId: string) => {
   const isValid = validate(fileId);
   if (!isValid) {
