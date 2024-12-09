@@ -10,6 +10,7 @@ import { PlusIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import Dropdown from "./Dropdown";
+import useSupabaseRealtime from "@/hooks/useSupabaseRealtime";
 
 interface FoldersDropdownListProps {
   workspaceFolders: Folder[];
@@ -19,6 +20,7 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   workspaceFolders,
   workspaceId,
 }) => {
+  useSupabaseRealtime();
   const { state, dispatch, folderId } = useAppState();
   const [folders, setFolders] = useState(workspaceFolders);
   const { subscription } = useSupabaseUser();
