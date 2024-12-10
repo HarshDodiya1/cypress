@@ -86,7 +86,6 @@ body {
   width: 0px;
 }
 
-
 .ce-popover-item:hover {
   @apply bg-muted/40 transition-all !important;
 }
@@ -141,4 +140,28 @@ body {
 ol,
 ul {
   @apply dark:text-washed-purple-700;
+}
+
+.ql-cursor .ql-cursor-caret {
+  height: 100%;
+  width: 2px;
+  margin-left: -1px;
+  background-color: #0000ff;
+}
+
+.ql-cursor .ql-cursor-flag {
+  max-width: none !important; /* Removes width restriction */
+  white-space: nowrap; /* Keeps text in single line */
+  visibility: visible !important; /* Ensures flag stays visible */
+  padding: 4px 8px;
+  background: #000;
+  color: white;
+}
+
+.ql-cursor .ql-cursor-name {
+  color: white;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 8px;
 }

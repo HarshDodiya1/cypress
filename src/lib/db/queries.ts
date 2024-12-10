@@ -260,13 +260,26 @@ export const getFolderDetails = async (folderId: string) => {
 };
 
 export const findUser = async (userId: string) => {
-  // const response = await db.query.users.findFirst({
-  //   where: (u, { eq }) => eq(u.id, userId),
-  // });
   const response = await db.user.findFirst({
     where: {
       id: userId,
     },
+  });
+  return response;
+};
+
+export const updateProfile = async (profile: Partial<User>, userId: string) => {
+  if (!userId) return;
+  // const response = await db
+  //   .update(profiles)
+  //   .set(profile)
+  //   .where(eq(profiles.id, userId));
+  const response = await db.user.updateMany({
+    where: {
+      id: userId,
+    },
+    data: profile,
+  
   });
   return response;
 };
