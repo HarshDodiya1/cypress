@@ -37,18 +37,7 @@ export async function POST(request: Request) {
           image: data.image || null,
         },
       });
-    } else {
-      user = await db.user.update({
-        where: { id: user.id },
-        data: {
-          name: data.name,
-          image: data.image || user.image,
-          provider: data.provider,
-          oauth_id: data.oauth_id,
-        },
-      });
     }
-
     const token = jwt.sign(
       {
         id: user.id,

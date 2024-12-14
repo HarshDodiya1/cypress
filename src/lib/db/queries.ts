@@ -16,7 +16,6 @@ export const createWorkspace = async (workspacece: Workspace) => {
 
 export const getUserSubscriptionStatus = async (userId: string) => {
   try {
-    console.log("This is the userid I'm getting", userId);
     const data = await db.subscription.findFirst({
       where: {
         id: userId,
@@ -270,16 +269,15 @@ export const findUser = async (userId: string) => {
 
 export const updateProfile = async (profile: Partial<User>, userId: string) => {
   if (!userId) return;
-  // const response = await db
-  //   .update(profiles)
-  //   .set(profile)
-  //   .where(eq(profiles.id, userId));
-  const response = await db.user.updateMany({
+  const response = await db.user.update({
     where: {
       id: userId,
     },
-    data: profile,
-  
+    data: {
+      ...profile,
+      billingAddress: profile.billingAddress ?? undefined,
+      paymentMethod: profile.paymentMethod ?? undefined,
+    },
   });
   return response;
 };

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const ErrorPage = () => {
-  const searchParams = useSearchParams();
+  const searchParams: any = useSearchParams();
   const error = searchParams.get("error");
 
   return (

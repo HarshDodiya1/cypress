@@ -1,13 +1,11 @@
 "use client";
 
-import { AuthUser, createClient } from "@supabase/supabase-js";
+import { AuthUser } from "@supabase/supabase-js";
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { Subscription } from "../db/supabase.types";
 import { useToast } from "@/hooks/use-toast";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { createContext, useContext, useEffect, useState } from "react";
 import { getUserSubscriptionStatus } from "../db/queries";
+import { Subscription } from "../db/supabase.types";
 
 type SupabaseUserContextType = {
   user: AuthUser | null;

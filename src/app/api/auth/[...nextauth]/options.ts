@@ -93,6 +93,15 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
+    redirect: async ({ url, baseUrl }) => {
+      if (url.startsWith(baseUrl)) return url;
+      else if (url.startsWith("/")) return new URL(url, baseUrl).toString();
+      return baseUrl;
+    },
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 365 * 24 * 60 * 60, // 1 year
   },
   providers: [
     GoogleProvider({

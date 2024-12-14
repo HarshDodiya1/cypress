@@ -196,12 +196,12 @@
 import Logo from "@/../public/cypresslogo.svg";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Github, Loader, MailCheck } from "lucide-react";
+import { Github, Loader } from "lucide-react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
@@ -220,6 +220,7 @@ const Signup = () => {
       console.log("This is the provider that we are sending: ", provider);
       await signIn(provider, {
         callbackUrl: "/dashboard",
+        redirect: true,
       });
     } catch (error) {
       setError("Something went wrong. Please try again.");
