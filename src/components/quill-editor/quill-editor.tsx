@@ -370,16 +370,16 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         }
       }
     };
-    socket.on('receive-cursor-move', socketHandler);
+    socket.on("receive-cursor-move", socketHandler);
     return () => {
-      socket.off('receive-cursor-move', socketHandler);
+      socket.off("receive-cursor-move", socketHandler);
     };
   }, [quill, socket, fileId, localCursors]);
 
   // Create room
   useEffect(() => {
     if (socket === null || quill === null || !fileId) return;
-    socket.emit('create-room', fileId);
+    socket.emit("create-room", fileId);
   }, [socket, quill, fileId]);
 
   useEffect(() => {
@@ -399,9 +399,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
       const quillLength = quill.getLength();
       saveTimerRef.current = setTimeout(async () => {
         if (contents && quillLength !== 1 && fileId) {
-          if (dirType == 'workspace') {
+          if (dirType == "workspace") {
             dispatch({
-              type: 'UPDATE_WORKSPACE',
+              type: "UPDATE_WORKSPACE",
               payload: {
                 workspace: { data: JSON.stringify(contents) },
                 workspaceId: fileId,
@@ -409,10 +409,10 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             });
             await updateWorkspace({ data: JSON.stringify(contents) }, fileId);
           }
-          if (dirType == 'folder') {
+          if (dirType == "folder") {
             if (!workspaceId) return;
             dispatch({
-              type: 'UPDATE_FOLDER',
+              type: "UPDATE_FOLDER",
               payload: {
                 folder: { data: JSON.stringify(contents) },
                 workspaceId,
@@ -421,10 +421,10 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             });
             await updateFolder({ data: JSON.stringify(contents) }, fileId);
           }
-          if (dirType == 'file') {
+          if (dirType == "file") {
             if (!workspaceId || !folderId) return;
             dispatch({
-              type: 'UPDATE_FILE',
+              type: "UPDATE_FILE",
               payload: {
                 file: { data: JSON.stringify(contents) },
                 workspaceId,
@@ -456,9 +456,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         quill.updateContents(deltas);
       }
     };
-    socket.on('receive-changes', socketHandler);
+    socket.on("receive-changes", socketHandler);
     return () => {
-      socket.off('receive-changes', socketHandler);
+      socket.off("receive-changes", socketHandler);
     };
   }, [quill, socket, fileId]);
 
@@ -479,7 +479,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 userCursor.createCursor(
                   collaborator.id,
                   collaborator.email.split("@")[0],
-                  `#${Math.random().toString(16).slice(2, 8)}`
+                  `#${Math.random().toString(16).slice(2, 8)}`,
                 );
                 allCursors.push(userCursor);
               }
@@ -497,8 +497,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           id: user.id,
           email: user.email?.split("@")[0],
           avatarUrl: response.image
-            ? supabase.storage.from("avatars").getPublicUrl(response.image)
-                .data.publicUrl
+            ? supabase.storage.from("avatars").getPublicUrl(response.image).data
+                .publicUrl
             : "",
         });
       });
