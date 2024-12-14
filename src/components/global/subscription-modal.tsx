@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { useSubscriptionModal } from "@/lib/providers/subscription-modal-provider";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,53 +8,49 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
-import { useSubscriptionModal } from "@/lib/providers/subscription-modal-provider";
-import { useSupabaseUser } from "@/lib/providers/supabase-user-provider";
-import { getStripe } from "@/lib/stripe/stripeClient";
-import { Price, ProductWirhPrice } from "@/lib/supabase/supabase.types";
-import { formatPrice, postData } from "@/lib/utils";
-import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import Loader from "./Loader";
+import { useToast } from "@/hooks/use-toast";
+import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
 
-interface SubscriptionModalProps {
-  products: ProductWirhPrice[];
-}
+// interface SubscriptionModalProps {
+//   products: ProductWirhPrice[];
+// }
 
-const SubscriptionModal: React.FC<SubscriptionModalProps> = ({ products }) => {
+const SubscriptionModal = () => {
   const { open, setOpen } = useSubscriptionModal();
   const { toast } = useToast();
   const { subscription } = useSupabaseUser();
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useSupabaseUser();
 
-  const onClickContinue = async (price: Price) => {
-    try {
-      setIsLoading(true);
-      if (!user) {
-        toast({ title: "You must be logged in" });
-        setIsLoading(false);
-        return;
-      }
-      if (subscription) {
-        toast({ title: "Already on a paid plan" });
-        setIsLoading(false);
-        return;
-      }
-      const { sessionId } = await postData({
-        url: "/api/create-checkout-session",
-        data: { price },
-      });
+  // const onClickContinue = async (price: Price) => {
+  //   try {
+  //     setIsLoading(true);
+  //     if (!user) {
+  //       toast({ title: "You must be logged in" });
+  //       setIsLoading(false);
+  //       return;
+  //     }
+  //     if (subscription) {
+  //       toast({ title: "Already on a paid plan" });
+  //       setIsLoading(false);
+  //       return;
+  //     }
+  //     const { sessionId } = await postData({
+  //       url: "/api/create-checkout-session",
+  //       data: { price },
+  //     });
 
-      console.log("Getting Checkout for stripe");
-      const stripe = await getStripe();
-      stripe?.redirectToCheckout({ sessionId });
-    } catch (error) {
-      toast({ title: "Oppse! Something went wrong.", variant: "destructive" });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     console.log("Getting Checkout for stripe");
+  //     const stripe = await getStripe();
+  //     stripe?.redirectToCheckout({ sessionId });
+  //   } catch (error) {
+  //     toast({ title: "Oppse! Something went wrong.", variant: "destructive" });
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
