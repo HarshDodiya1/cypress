@@ -219,7 +219,6 @@ export const getSharedWorkspaces = async (userId: string) => {
 
 export const getWorkspaceDetails = async (workspaceId: string) => {
   const isValid = validate(workspaceId);
-  console.log("Kya valid hai? ", isValid);
   if (!isValid)
     return {
       data: [],

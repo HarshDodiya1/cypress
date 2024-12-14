@@ -21,6 +21,7 @@ import {
   deleteWorkspace,
   getCollaborators,
   removeCollaborators,
+  updateProfile,
   updateWorkspace,
 } from "@/lib/db/queries";
 import { User, Workspace } from "@/lib/db/supabase.types";
@@ -32,13 +33,17 @@ import {
   CreditCard,
   ExternalLink,
   Lock,
+  LogOut,
   Plus,
   Share,
   UserIcon,
 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
+import LogoutButton from "../global/logout-button";
+import CypressProfileIcon from "../icons/cypressProfileIcon";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -48,8 +53,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../ui/alert-dialog";
-import Link from "next/link";
-import CypressProfileIcon from "../icons/cypressProfileIcon";
 
 const SettingsForm = () => {
   const { toast } = useToast();
@@ -144,6 +147,37 @@ const SettingsForm = () => {
       setOpenAlertMessage(true);
     } else setPermissions(val);
   };
+
+  // user can change their profile picture
+  // const onChangeProfilePicture = async (
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   if (!user) return;
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
+
+  //   setUploadingProfilePic(true);
+  //   const uuid = v4();
+  //   const { data, error } = await supabase.storage
+  //     .from("avatars")
+  //     .upload(`avatar.${user.id}.${uuid}`, file, {
+  //       cacheControl: "3600",
+  //       upsert: false,
+  //     });
+  //   console.log("this is the data file uploading the avatar url", data);
+
+  //   if (!error) {
+  //     await updateProfile({ image: data.path }, user.id);
+  //     setUploadingProfilePic(false);
+  //     // setUser({
+  //     //   ...user,
+  //     //   avatarUrl: supabase.storage.from('avatars').getPublicUrl(data.path)
+  //     //     ?.data.publicUrl,
+  //     // });
+  //     const newUser = { ...user, image: data.path };
+  //     router.refresh();
+  //   }
+  // };
 
   // on Clicks
   // Fetching avatar detailes
@@ -361,52 +395,14 @@ const SettingsForm = () => {
             />
           </div>
         </div>
-        {/* <LogoutButton>
-          <div className="flex items-center">
-            <LogOut />
+        <LogoutButton>
+          <div className="flex flex-col items-center">
+            <LogOut /> Log out 
           </div>
         </LogoutButton>
-        <p className="flex items-center gap-2 mt-6">
+        {/* <p className="flex items-center gap-2 mt-6">
           <CreditCard size={20} /> Billing & Plan
-        </p>
-        <Separator />
-        <p className="text-muted-foreground">
-          You are currently on a{" "}
-          {subscription?.status === "active" ? "Pro" : "Free"} Plan
-        </p>
-        <Link
-          href="/"
-          target="_blank"
-          className="text-muted-foreground flex flex-row items-center gap-2"
-        >
-          View Plans <ExternalLink size={16} />
-        </Link>
-        {subscription?.status === "active" ? (
-          <div>
-            <Button
-              type="button"
-              size="sm"
-              variant={"secondary"}
-              disabled={loadingPortal}
-              className="text-sm"
-              onClick={redirectToCustomerPortal}
-            >
-              Manage Subscription
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Button
-              type="button"
-              size="sm"
-              variant={"secondary"}
-              className="text-sm"
-              onClick={() => setOpen(true)}
-            >
-              Start Plan
-            </Button>
-          </div>
-        )} */}
+        </p> */}
       </>
       <AlertDialog open={openAlertMessage}>
         <AlertDialogContent>
