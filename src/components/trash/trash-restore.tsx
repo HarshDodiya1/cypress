@@ -3,12 +3,33 @@ import { File } from "@/lib/db/supabase.types";
 import { appFoldersType, useAppState } from "@/lib/provider/state-provider";
 import { FileIcon, FolderIcon } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TrashRestore = () => {
   const { state, workspaceId } = useAppState();
   const [folders, setFolders] = useState<appFoldersType[] | []>([]);
   const [files, setFiles] = useState<File[] | []>([]);
+
+  useEffect(() => {
+    const stateFolders =
+      state.workspaces
+        .find((workspace) => workspace.id === workspaceId)
+        ?.folders.filter((folder) => folder.inTrash) || [];
+    setFolders(stateFolders);
+
+    let stateFiles: File[] = [];
+    state.workspaces
+      .find((workspace) => workspace.id === workspaceId)
+      ?.folders.forEach((folder) => {
+        folder.files.forEach((file) => {
+          if (file.inTrash) {
+            stateFiles.push(file);
+          }
+        });
+      });
+    setFiles(stateFiles);
+  }, [state, workspaceId]);
+  
   return (
     <section>
       {!!folders.length && (
@@ -64,6 +85,7 @@ const TrashRestore = () => {
           transform
           -translate-x-1/2
           -translate-y-1/2
+
       "
         >
           No Items in trash

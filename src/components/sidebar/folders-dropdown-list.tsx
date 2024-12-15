@@ -2,15 +2,15 @@
 import TooltipComponent from "@/components/global/tooltip-component";
 import { Accordion } from "@/components/ui/accordion";
 import { toast } from "@/hooks/use-toast";
+import useSupabaseRealtime from "@/hooks/useSupabaseRealtime";
 import { createFolder } from "@/lib/db/queries";
 import { Folder } from "@/lib/db/supabase.types";
 import { useAppState } from "@/lib/provider/state-provider";
-import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
 import { PlusIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import Dropdown from "./Dropdown";
-import useSupabaseRealtime from "@/hooks/useSupabaseRealtime";
+import LimitModal from "../global/limit-modal";
 
 interface FoldersDropdownListProps {
   workspaceFolders: Folder[];
@@ -23,8 +23,8 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   useSupabaseRealtime();
   const { state, dispatch, folderId } = useAppState();
   const [folders, setFolders] = useState(workspaceFolders);
-  const { subscription } = useSupabaseUser();
-  //   const { open, setOpen } = useSubscriptionModal();
+  const [showLimitModal, setShowLimitModal] = useState(false);
+
   useEffect(() => {
     if (workspaceFolders.length > 0) {
       dispatch({
@@ -51,10 +51,11 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   }, [state]);
 
   const addFolderHandler = async () => {
-    // if (folders.length >= 3 && !subscription) {
-    // //   setOpen(true);
-    //   return;
-    // }
+    if (folders.length >= 3) {
+      console.log("Hitting limit");
+      setShowLimitModal(true);
+      return;
+    }
     const newFolder: Folder = {
       data: null,
       id: v4(),
@@ -95,6 +96,10 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
           />
         </TooltipComponent>
       </div>
+      {showLimitModal && (
+        <LimitModal open={showLimitModal} setopen={setShowLimitModal} />
+      )}
+
       <Accordion
         type="multiple"
         defaultValue={[folderId || ""]}
