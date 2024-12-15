@@ -3,13 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateFile, updateFolder, updateWorkspace } from "@/lib/db/queries";
-import { File, Folder, Workspace } from "@/lib/db/supabase.types";
 import { supabase } from "@/lib/db/supabaseClient";
-import {
-  appFoldersType,
-  appWorkspacesType,
-  useAppState,
-} from "@/lib/provider/state-provider";
+import { useAppState } from "@/lib/provider/state-provider";
 import React from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -19,20 +14,17 @@ interface BannerUploadFormProps {
 }
 
 const BannerUploadForm: React.FC<BannerUploadFormProps> = ({ dirType, id }) => {
-  const { state, workspaceId, folderId, dispatch } = useAppState();
+  const { workspaceId, folderId, dispatch } = useAppState();
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isSubmitting: isUploading, errors },
   } = useForm<FieldValues>({
     mode: "onSubmit",
     defaultValues: { banner: "" },
   });
   const onSubmitHandler: SubmitHandler<FieldValues> = async (values) => {
-    console.log("These are the values: ", values);
-
     const file = values.banner?.[0];
     if (!file || !id) return;
     try {
@@ -45,10 +37,8 @@ const BannerUploadForm: React.FC<BannerUploadFormProps> = ({ dirType, id }) => {
             upsert: true,
           });
         if (error) {
-          console.error("Yeh error aa gaya hai ji ", error);
           throw new Error();
         }
-        console.log("Error nahi aaya hai ji, this is the data we got ", data);
         filePath = data?.path;
       };
       if (dirType === "file") {

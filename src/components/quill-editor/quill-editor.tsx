@@ -37,7 +37,6 @@ import React, {
   useState,
 } from "react";
 import BannerUpload from "../banner-upload/banner-upload";
-import { AnyARecord } from "dns";
 
 interface QuillEditorProps {
   dirDetails: File | Folder | Workspace;
@@ -76,7 +75,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   const { state, workspaceId, folderId, dispatch } = useAppState();
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const [quill, setQuill] = useState<any>(null);
-  const { socket, isConnected } = useSocket();
+  const { socket } = useSocket();
   const [saving, setSaving] = useState(false);
   const [deletingBanner, setDeletingBanner] = useState(false);
   const [localCursors, setLocalCursors] = useState<any>([]);
@@ -479,7 +478,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 userCursor.createCursor(
                   collaborator.id,
                   collaborator.email.split("@")[0],
-                  `#${Math.random().toString(16).slice(2, 8)}`,
+                  `#${Math.random().toString(16).slice(2, 8)}`
                 );
                 allCursors.push(userCursor);
               }

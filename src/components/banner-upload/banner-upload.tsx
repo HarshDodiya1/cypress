@@ -1,8 +1,3 @@
-import { File, Folder, Workspace } from "@/lib/db/supabase.types";
-import {
-  appFoldersType,
-  appWorkspacesType,
-} from "@/lib/provider/state-provider";
 import React from "react";
 import CustomDialogTrigger from "../global/custom-dialog-trigger";
 import BannerUploadForm from "./banner-upload-form";

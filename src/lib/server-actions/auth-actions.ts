@@ -179,6 +179,7 @@ export async function verifyAuth() {
 
     return user ? { ...user, password: undefined } : null;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }

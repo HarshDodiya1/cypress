@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import SessionProvider from "@/lib/provider/session-provider";
 import { ThemeProvider } from "@/lib/provider/theme-provider";
 import type { Metadata } from "next";

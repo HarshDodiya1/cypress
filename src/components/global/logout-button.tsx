@@ -1,6 +1,5 @@
 "use client";
 import { useAppState } from "@/lib/provider/state-provider";
-import { useSupabaseUser } from "@/lib/provider/supabase-user-provider";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -11,7 +10,6 @@ interface LogoutButtonProps {
 }
 
 const LogoutButton: React.FC<LogoutButtonProps> = ({ children }) => {
-  const { user } = useSupabaseUser();
   const { dispatch } = useAppState();
   const router = useRouter();
   const logout = async () => {

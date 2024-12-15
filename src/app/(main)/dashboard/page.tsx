@@ -1,13 +1,9 @@
-import {
-  authOptions,
-  CustomSession,
-} from "@/app/api/auth/[...nextauth]/options";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import DashboardSetup from "@/components/dashboard-setup/dashboard-setup";
 import db from "@/lib/db/db";
 import { getUserSubscriptionStatus } from "@/lib/db/queries";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import React from "react";
 
 const DashboardPage = async () => {
   const session: any = await getServerSession(authOptions);

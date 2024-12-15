@@ -240,11 +240,11 @@ export const getWorkspaceDetails = async (workspaceId: string) => {
 
 export const getFolderDetails = async (folderId: string) => {
   const isValid = validate(folderId);
-  if (!isValid) {
-    data: [];
-    error: "Error";
-  }
-
+  if (!isValid)
+    return {
+      data: [],
+      error: "Error",
+    };
   try {
     const response = (await db.folder.findFirst({
       where: {
@@ -253,6 +253,7 @@ export const getFolderDetails = async (folderId: string) => {
     })) as Folder;
     return { data: response ? [response] : [], error: null };
   } catch (error) {
+    console.log(error);
     return { data: [], error: "Error" };
   }
 };
@@ -297,6 +298,7 @@ export const getFileDetails = async (fileId: string) => {
     })) as File;
     return { data: response ? [response] : [], error: null };
   } catch (error) {
+    console.log(error);
     return { data: [], error: "Error" };
   }
 };
