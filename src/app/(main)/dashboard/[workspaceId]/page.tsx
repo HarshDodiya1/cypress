@@ -8,9 +8,7 @@ const WorkspacePage = async ({
 }: {
   params: { workspaceId: string };
 }) => {
-  const { data, error }: { data: any; error: any } = await getWorkspaceDetails(
-    params.workspaceId
-  );
+  const { data, error } = await getWorkspaceDetails(params.workspaceId);
   if (error || !data.length) redirect("/dashboard");
   return (
     <div className="relative">

@@ -15,6 +15,7 @@ interface EmojiPickerProps {
 
 const EmojiPicker: React.FC<EmojiPickerProps> = ({ children, getValue }) => {
   const Picker = dynamic(() => import("emoji-picker-react"));
+  //@ts-ignore
   const onClick = (selectedEmoji: any) => {
     if (getValue) getValue(selectedEmoji.emoji);
   };

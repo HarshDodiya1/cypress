@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { createWorkspace } from "@/lib/db/queries";
-import { Subscription, Workspace } from "@/lib/db/supabase.types";
+import { Subscription, User, Workspace } from "@/lib/db/supabase.types";
 import { supabase } from "@/lib/db/supabaseClient";
 import { useAppState } from "@/lib/provider/state-provider";
 import { CreateWorkspaceFormSchema } from "@/lib/types";
@@ -24,7 +24,7 @@ import { v4 } from "uuid";
 import { z } from "zod";
 
 interface DashboardSetupProps {
-  user?: any;
+  user: User;
   subscription: Subscription | null;
 }
 

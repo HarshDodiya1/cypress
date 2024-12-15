@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 const ErrorPage = () => {
-  const searchParams: any = useSearchParams();
-  const error = searchParams.get("error");
+  const searchParams = useSearchParams();
+  const error = searchParams?.get("error");
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">

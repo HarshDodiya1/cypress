@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-interface CypressTemplateIconProps {}
-const CypressTemplateIcon: FC<CypressTemplateIconProps> = () => {
+const CypressTemplateIcon = () => {
   return (
     <svg
       width="24"

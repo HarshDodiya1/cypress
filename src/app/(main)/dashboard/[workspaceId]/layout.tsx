@@ -5,7 +5,7 @@ import React from "react";
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: any;
+  params: {workspaceId: string};
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, params }) => {

@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 import EmojiPicker from "@/components/global/emoji-picker";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
