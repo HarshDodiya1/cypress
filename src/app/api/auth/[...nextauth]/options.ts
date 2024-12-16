@@ -21,7 +21,7 @@ export interface CustomUser {
 }
 
 export const authOptions: AuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: config.NEXTAUTH_SECRET,
   pages: {
     signIn: "/signup",
     error: "/auth/error",
