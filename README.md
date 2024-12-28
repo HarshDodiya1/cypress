@@ -20,7 +20,7 @@
 
 ## 📑 Table of Contents
 
- 1. [Features](#features)
+ 1. [✨ Features that Empower Teams](#-features-that-empower-teams)
  2. [🛠️ Technology Stack](#️-technology-stack)
  3. [🚀 Quick Start Guide](#-quick-start-guide)
  4. [🎯 Key Features in Detail](#-key-features-in-detail)
@@ -30,7 +30,7 @@
  8. [🌟 Show your support](#-show-your-support)
 
 
-## Features
+## ✨ Features that Empower Teams
 
 ### Real-time Collaboration
 ![Real-time Collaboration](https://github.com/user-attachments/assets/a9bbff5d-6386-4ad6-b28b-48b4d2ae8112)
