@@ -18,7 +18,19 @@
   <p>An editor with multi cursor functionality using Nextjs 13, Websockets, Supabase Realtime, Real-time presence, Custom Rich text editor, Update profile settings.</p>
 </div>
 
-## ✨ Features that Empower Teams
+## 📑 Table of Contents
+
+ 1. [Features](#features)
+ 2. [🛠️ Technology Stack](#️-technology-stack)
+ 3. [🚀 Quick Start Guide](#-quick-start-guide)
+ 4. [🎯 Key Features in Detail](#-key-features-in-detail)
+ 5. [💫 Core Features](#-core-features)
+ 6. [🤝 Contributing](#-contributing)
+ 7. [📄 License](#-license)
+ 8. [🌟 Show your support](#-show-your-support)
+
+
+## Features
 
 ### Real-time Collaboration
 ![Real-time Collaboration](https://github.com/user-attachments/assets/a9bbff5d-6386-4ad6-b28b-48b4d2ae8112)
@@ -52,31 +64,31 @@
 
 ## 🛠️ Technology Stack
 
-### Frontend
-- **Next.js 14**: Server-side rendered React applications
-- **Tailwind CSS**: Utility-first styling framework
-- **Socket.io Client**: Real-time communication
-- **Quill**: Rich text editor with cursor support
-- **Shadcn UI**: Beautifully designed components library
-- **React Hook Form**: Form validation and handling
+### 🎨 Frontend
+- **Next.js 14** 🚀: Server-side rendered React applications
+- **Tailwind CSS** 💅: Utility-first styling framework
+- **Socket.io Client** 🔌: Real-time communication
+- **Quill** ✍️: Rich text editor with cursor support
+- **Shadcn UI** 🎯: Beautifully designed components library
+- **React Hook Form** 📝: Form validation and handling
 
-### Backend & Infrastructure
-- **Next Auth**: Authentication with Google and GitHub providers
-- **Prisma ORM**: Type-safe database toolkit
-- **Supabase**: Backend-as-a-service platform
-- **Socket.io**: WebSocket server implementation
+### ⚙️ Backend & Infrastructure
+- **Next Auth** 🔐: Authentication with Google and GitHub providers
+- **Prisma ORM** 🗃️: Type-safe database toolkit
+- **Supabase** ⚡: Backend-as-a-service platform
+- **Socket.io** 🔄: WebSocket server implementation
 
-### Development & Utilities
-- **TypeScript**: Static type checking
-- **Zod**: Schema validation
-- **TailwindCSS Animate**: Animation utilities
+### 🔧 Development & Utilities
+- **TypeScript** 📘: Static type checking
+- **Zod** ✅: Schema validation
+- **TailwindCSS Animate** 💫: Animation utilities
 
 ## 🚀 Quick Start Guide
 
-### Prerequisites
-- Node.js 16 or higher
-- npm or yarn
-- Git
+### 📋 Prerequisites
+- Node.js 16 or higher ⚡
+- npm or yarn 📦
+- Git 🔄
 
 ### Installation Steps
 
@@ -170,26 +182,26 @@ See your teammates' cursors in real-time as they move across the workspace.
 <img src="https://github.com/user-attachments/assets/6b8dfc72-e3f3-4bf9-b919-38e54364c076" width="400" alt="Trash Management" />
 <div align="left">Robust trash management system for recovering deleted items.</div>
 
+
 ## 💫 Core Features
 
-
-- **Real-time Cursor Tracking**: See collaborators' cursors in real-time
-- **Live Text Selection**: Share and observe text selections instantly
-- **Workspace Management**: Create and organize shared workspaces
-- **File Organization**: Intuitive folder structure and management
-- **Trash & Restore**: Comprehensive file recovery system
-- **Authentication**: Secure user authentication with NextAuth
-- **Responsive Design**: Works seamlessly across devices
+- **Real-time Cursor Tracking** 🖱️: See collaborators' cursors in real-time
+- **Live Text Selection** ✨: Share and observe text selections instantly
+- **Workspace Management** 📂: Create and organize shared workspaces
+- **File Organization** 📁: Intuitive folder structure and management
+- **Trash & Restore** 🔄: Comprehensive file recovery system
+- **Authentication** 🔐: Secure user authentication with NextAuth
+- **Responsive Design** 📱: Works seamlessly across devices
 
 ## 🤝 Contributing
 
 We welcome contributions to Cypress! Here's how you can help:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the repository 🍴
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`) 
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`) 
+4. Push to the branch (`git push origin feature/AmazingFeature`) 
+5. Open a Pull Request 
 
 ## 📄 License
 
